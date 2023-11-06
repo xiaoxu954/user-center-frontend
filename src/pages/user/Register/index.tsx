@@ -2,7 +2,7 @@ import Footer from '@/components/Footer';
 import {register} from '@/services/ant-design-pro/api';
 import {LockOutlined, UserOutlined,} from '@ant-design/icons';
 import {LoginForm, ProFormText,} from '@ant-design/pro-components';
-import {Alert, message, Tabs} from 'antd';
+import {message, Tabs} from 'antd';
 import React, {useState} from 'react';
 import {history} from 'umi';
 import styles from './index.less';
@@ -21,7 +21,7 @@ const Register: React.FC = () => {
     try {
       // 注册
       const id = await register(values);
-      if (id > 0) {
+      if (id ) {
         const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
         /** 此方法会跳转到 redirect 参数所在的位置 */

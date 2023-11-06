@@ -1,8 +1,8 @@
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable, TableDropdown } from '@ant-design/pro-components';
-import React, { useRef } from 'react';
-import { searchUsers } from '@/services/ant-design-pro/api';
-import { Image } from 'antd';
+import type {ActionType, ProColumns} from '@ant-design/pro-components';
+import {ProTable, TableDropdown} from '@ant-design/pro-components';
+import React, {useRef} from 'react';
+import {searchUsers} from '@/services/ant-design-pro/api';
+import {Image} from 'antd';
 
 const columns: ProColumns<API.CurrentUser>[] = [
   {
@@ -52,7 +52,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     dataIndex: 'userRole',
     valueType: 'select',
     valueEnum: {
-      0: { text: '普通用户', status: 'Default' },
+      0: {text: '普通用户', status: 'Default'},
       1: {
         text: '管理员',
         status: 'Success',
@@ -73,7 +73,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     ellipsis: true,
     valueType: 'select',
     valueEnum: {
-      all: { text: '超长'.repeat(50) },
+      all: {text: '超长'.repeat(50)},
       open: {
         text: '未解决',
         status: 'Error',
@@ -110,8 +110,8 @@ const columns: ProColumns<API.CurrentUser>[] = [
         key="actionGroup"
         onSelect={() => action?.reload()}
         menus={[
-          { key: 'copy', name: '复制' },
-          { key: 'delete', name: '删除' },
+          {key: 'copy', name: '复制'},
+          {key: 'delete', name: '删除'},
         ]}
       />,
     ],
