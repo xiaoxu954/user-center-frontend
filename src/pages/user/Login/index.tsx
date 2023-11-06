@@ -4,7 +4,7 @@ import {LockOutlined, UserOutlined,} from '@ant-design/icons';
 import {LoginForm, ProFormCheckbox, ProFormText,} from '@ant-design/pro-components';
 import {Alert, message, Tabs} from 'antd';
 import React, {useState} from 'react';
-import {history, useModel} from 'umi';
+import {history, Link, useModel} from 'umi';
 import styles from './index.less';
 import {FORGOT_PASSWORD, SYSTEM_LOGO} from "@/constant";
 
@@ -128,9 +128,13 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
+
+
             <ProFormCheckbox noStyle name="autoLogin">
               自动登录
             </ProFormCheckbox>
+            <Link to="/user/register">新用户注册</Link>
+
             <a
               style={{
                 float: 'right',
@@ -140,6 +144,7 @@ const Login: React.FC = () => {
             >
               忘记密码请联系管理员
             </a>
+
           </div>
         </LoginForm>
       </div>
