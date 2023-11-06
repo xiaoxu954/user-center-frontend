@@ -12,6 +12,11 @@ import {RequestConfig} from "@@/plugin-request/request";
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
+/**
+ * 无需用户登录态的页面
+ */
+const NO_NEED_LOGIN_WHITE_LIST = ['/user/register', loginPath];
+
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
   loading: <PageLoading/>,
@@ -20,6 +25,7 @@ export const initialStateConfig = {
 export const request: RequestConfig = {
   timeout: 10000,
 }
+
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -32,24 +38,26 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser();
-      return msg.data;
+      return await queryCurrentUser();
     } catch (error) {
       // history.push(loginPath);
     }
     return undefined;
   };
-  // 如果不是登录页面，执行
-  if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
+
+  // 如果是无需登录的页面，不执行
+  if (NO_NEED_LOGIN_WHITE_LIST.includes(history.location.pathname)) {
     return {
+      //@ts-ignore
       fetchUserInfo,
-      currentUser,
       settings: defaultSettings,
     };
   }
+  const currentUser = await fetchUserInfo();
   return {
+    //@ts-ignore
     fetchUserInfo,
+    currentUser,
     settings: defaultSettings,
   };
 }
@@ -60,13 +68,13 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     rightContentRender: () => <RightContent/>,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer/>,
     onPageChange: () => {
       const {location} = history;
-      const whiteList = ['/user/register', loginPath];
-      if (whiteList.includes(location.pathname)) {
+
+      if (NO_NEED_LOGIN_WHITE_LIST.includes(location.pathname)) {
         return;
       }
       // 如果没有登录，重定向到 login
