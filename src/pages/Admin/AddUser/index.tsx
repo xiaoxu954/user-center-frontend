@@ -103,7 +103,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
       >
         编辑
       </a>,
-      <a href={record.avatarUrl} target="_blank" rel="noopener noreferrer" key="view">
+      <a href={record.userRole} target="_blank" rel="noopener noreferrer" key="view">
         查看
       </a>,
       <TableDropdown
@@ -168,7 +168,7 @@ export default () => {
         onChange: (page) => console.log(page),
       }}
       dateFormatter="string"
-      headerTitle="用户列表"
+      headerTitle="添加用户"
       toolBarRender={() => []}
     />
   );
