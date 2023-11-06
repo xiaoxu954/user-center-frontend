@@ -1,13 +1,13 @@
 import Footer from '@/components/Footer';
 import RightContent from '@/components/RightContent';
-import {BookOutlined, LinkOutlined} from '@ant-design/icons';
-import type {Settings as LayoutSettings} from '@ant-design/pro-components';
-import {PageLoading, SettingDrawer} from '@ant-design/pro-components';
-import type {RunTimeLayoutConfig} from 'umi';
-import {history, Link} from 'umi';
+import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import type { Settings as LayoutSettings } from '@ant-design/pro-components';
+import { PageLoading, SettingDrawer } from '@ant-design/pro-components';
+import type { RunTimeLayoutConfig } from 'umi';
+import { history, Link } from 'umi';
 import defaultSettings from '../config/defaultSettings';
-import {currentUser as queryCurrentUser} from './services/ant-design-pro/api';
-import {RequestConfig} from "@@/plugin-request/request";
+import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import { RequestConfig } from '@@/plugin-request/request';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -19,13 +19,12 @@ const NO_NEED_LOGIN_WHITE_LIST = ['/user/register', loginPath];
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
-  loading: <PageLoading/>,
+  loading: <PageLoading />,
 };
 
 export const request: RequestConfig = {
   timeout: 10000,
-}
-
+};
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -55,7 +54,7 @@ export async function getInitialState(): Promise<{
   }
   const currentUser = await fetchUserInfo();
   return {
-    //@ts-ignore
+    // @ts-ignore
     fetchUserInfo,
     currentUser,
     settings: defaultSettings,
@@ -63,16 +62,16 @@ export async function getInitialState(): Promise<{
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
-export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => {
+export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
-    rightContentRender: () => <RightContent/>,
+    rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
       content: initialState?.currentUser?.username,
     },
-    footerRender: () => <Footer/>,
+    footerRender: () => <Footer />,
     onPageChange: () => {
-      const {location} = history;
+      const { location } = history;
 
       if (NO_NEED_LOGIN_WHITE_LIST.includes(location.pathname)) {
         return;
@@ -84,15 +83,15 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     },
     links: isDev
       ? [
-        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-          <LinkOutlined/>
-          <span>OpenAPI 文档</span>
-        </Link>,
-        <Link to="/~docs" key="docs">
-          <BookOutlined/>
-          <span>业务组件文档</span>
-        </Link>,
-      ]
+          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+            <LinkOutlined />
+            <span>OpenAPI 文档</span>
+          </Link>,
+          <Link to="/~docs" key="docs">
+            <BookOutlined />
+            <span>业务组件文档</span>
+          </Link>,
+        ]
       : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
