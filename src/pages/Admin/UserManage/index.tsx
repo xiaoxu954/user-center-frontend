@@ -55,7 +55,6 @@ const columns: ProColumns<API.CurrentUser>[] = [
         valueEnum: {
             0: {text: '正常', status: 'success'},
             1: {text: '违规', status: 'Default',},
-
         },
     },
     {
