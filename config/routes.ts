@@ -15,7 +15,6 @@ export default [
     path: '/admin',
     icon: 'crown',
     access: 'canAdmin',
-    //todo 管理员权限校验
     component: './Admin',
     routes: [
       {

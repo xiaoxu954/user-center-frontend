@@ -1,7 +1,7 @@
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
 import {ProTable, TableDropdown} from '@ant-design/pro-components';
 import React, {useRef} from 'react';
-import {searchUsers} from '@/services/ant-design-pro/api';
+import {deleteUser, searchUsers} from '@/services/ant-design-pro/api';
 import {Image} from 'antd';
 
 const columns: ProColumns<API.CurrentUser>[] = [
@@ -32,6 +32,11 @@ const columns: ProColumns<API.CurrentUser>[] = [
     {
         title: '性别',
         dataIndex: 'gender',
+        valueType: 'select',
+        valueEnum: {
+            0: {text: '男',},
+            1: {text: '女',},
+        },
     },
     {
         title: '电话',
@@ -46,6 +51,12 @@ const columns: ProColumns<API.CurrentUser>[] = [
     {
         title: '状态',
         dataIndex: 'userStatus',
+        valueType: 'select',
+        valueEnum: {
+            0: {text: '正常', status: 'success'},
+            1: {text: '违规', status: 'Default',},
+
+        },
     },
     {
         title: '角色',
@@ -63,33 +74,9 @@ const columns: ProColumns<API.CurrentUser>[] = [
         title: '创建时间',
         dataIndex: 'createTime',
         valueType: 'dateTime',
-    },
-    {
-        disable: true,
-        title: '状态',
-        dataIndex: 'state',
-        filters: true,
-        onFilter: true,
-        ellipsis: true,
-        valueType: 'select',
-        valueEnum: {
-            all: {text: '超长'.repeat(50)},
-            open: {
-                text: '未解决',
-                status: 'Error',
-            },
-            closed: {
-                text: '已解决',
-                status: 'Success',
-                disabled: true,
-            },
-            processing: {
-                text: '解决中',
-                status: 'Processing',
-            },
-        },
-    },
 
+    },
+//todo 实现操作按钮功能
     {
         title: '操作',
         valueType: 'option',
@@ -104,11 +91,14 @@ const columns: ProColumns<API.CurrentUser>[] = [
                 编辑
             </a>,
             <a href={record.avatarUrl} target="_blank" rel="noopener noreferrer" key="view">
-                查看
+                查看头像
             </a>,
             <TableDropdown
                 key="actionGroup"
-                onSelect={() => action?.reload()}
+                onSelect={() => {
+                    deleteUser(record.id)
+                }}
+                // onSelect={() => action?.reload()}
                 menus={[
                     {key: 'copy', name: '复制'},
                     {key: 'delete', name: '删除'},

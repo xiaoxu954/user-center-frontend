@@ -1,12 +1,14 @@
 // @ts-ignore
 /* eslint-disable */
 import request from '@/plugins/globalRequest';
+
 // import {request} from 'umi';
 
 
-
 /** 获取当前的用户 GET /api/currentUser */
-export async function currentUser(options?: { [key: string]: any }) {
+export async function currentUser(options?: {
+    [key: string]: any
+}) {
     return request<{
         data: API.CurrentUser;
     }>('/api/user/current', {
@@ -16,7 +18,9 @@ export async function currentUser(options?: { [key: string]: any }) {
 }
 
 /** 退出登录接口 POST /api/user/logout  */
-export async function outLogout(options?: { [key: string]: any }) {
+export async function outLogout(options?: {
+    [key: string]: any
+}) {
     return request<Record<string, any>>('/api/user/logout', {
         method: 'POST',
         ...(options || {}),
@@ -24,7 +28,9 @@ export async function outLogout(options?: { [key: string]: any }) {
 }
 
 /** 登录接口 POST /api/user/login */
-export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
+export async function login(body: API.LoginParams, options?: {
+    [key: string]: any
+}) {
     return request<API.BaseResponse<API.LoginResult>>('/api/user/login', {
         method: 'POST',
         headers: {
@@ -36,7 +42,9 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
 }
 
 /** 注册接口 POST /api/user/register */
-export async function register(body: API.RegisterParams, options?: { [key: string]: any }) {
+export async function register(body: API.RegisterParams, options?: {
+    [key: string]: any
+}) {
     return request<API.BaseResponse<API.RegisterResult>>('/api/user/register', {
         method: 'POST',
         headers: {
@@ -48,15 +56,35 @@ export async function register(body: API.RegisterParams, options?: { [key: strin
 }
 
 /** 搜索用户 GET /api/user/search */
-export async function searchUsers(options?: { [key: string]: any }) {
+export async function searchUsers(options?: {
+    [key: string]: any
+}) {
     return request<API.BaseResponse<API.CurrentUser[]>>('/api/user/search', {
         method: 'GET',
         ...(options || {}),
     });
 }
 
+/** 删除用户接口 POST /api/user/register */
+export async function deleteUser(body: API.DeleteUserParams, options?: {
+    [key: string]: any
+}) {
+    return request<API.BaseResponse<API.DeleteUserResult>>('/api/user/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+
+        },
+        data: body,
+        ...(options || {}),
+    });
+}
+
+
 /** 此处后端没有提供注释 GET /api/notices */
-export async function getNotices(options?: { [key: string]: any }) {
+export async function getNotices(options?: {
+    [key: string]: any
+}) {
     return request<API.NoticeIconList>('/api/notices', {
         method: 'GET',
         ...(options || {}),
@@ -72,7 +100,9 @@ export async function rule(
         /** 页面的容量 */
         pageSize?: number;
     },
-    options?: { [key: string]: any },
+    options?: {
+        [key: string]: any
+    },
 ) {
     return request<API.RuleList>('/api/rule', {
         method: 'GET',
@@ -84,7 +114,9 @@ export async function rule(
 }
 
 /** 新建规则 PUT /api/rule */
-export async function updateRule(options?: { [key: string]: any }) {
+export async function updateRule(options?: {
+    [key: string]: any
+}) {
     return request<API.RuleListItem>('/api/rule', {
         method: 'PUT',
         ...(options || {}),
@@ -92,7 +124,9 @@ export async function updateRule(options?: { [key: string]: any }) {
 }
 
 /** 新建规则 POST /api/rule */
-export async function addRule(options?: { [key: string]: any }) {
+export async function addRule(options?: {
+    [key: string]: any
+}) {
     return request<API.RuleListItem>('/api/rule', {
         method: 'POST',
         ...(options || {}),
@@ -100,7 +134,9 @@ export async function addRule(options?: { [key: string]: any }) {
 }
 
 /** 删除规则 DELETE /api/rule */
-export async function removeRule(options?: { [key: string]: any }) {
+export async function removeRule(options?: {
+    [key: string]: any
+}) {
     return request<Record<string, any>>('/api/rule', {
         method: 'DELETE',
         ...(options || {}),
